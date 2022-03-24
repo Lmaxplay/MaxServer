@@ -6,6 +6,6 @@ $tsBlock = {
     tsc -w --project ./tsconfig.json
 }
 
-Start-Job -ScriptBlock $sassBlock
-Start-Job -ScriptBlock $tsBlock
+Start-Job -ScriptBlock $sassBlock -Name "SASS"
+Start-Job -ScriptBlock $tsBlock -Name "TSC"
 nodemon "src/index.ts"

@@ -4,8 +4,10 @@ const express = require("express");
 const fs = require("node:fs");
 const path = require("node:path");
 const crypto = require("node:crypto");
+const https = require("https");
 const app = express();
-const PORT = 8080;
+const PORT = 80;
+const PORTHTTPS = 8080;
 app.use(express.json());
 app.get("/", (req, res) => {
     if (fs.existsSync(path.join(path.join(__dirname, "../page/"), "index.html"))) {
@@ -32,7 +34,7 @@ app.post("/hash/", (req, res) => {
             sha512: crypto.createHash('sha512').update(req.body['value']).digest('hex'),
             md5: crypto.createHash('md5').update(req.body['value']).digest('hex'),
             length: req.body['value'].length,
-            supported: crypto.getHashes()
+            //supported: crypto.getHashes()
         };
         jsonValue[req.body['hashtype']] = crypto.createHash(req.body['hashtype']).update(req.body['value']).digest('hex');
         res.send(jsonValue);
@@ -45,9 +47,15 @@ app.post("/hash/", (req, res) => {
         sha512: crypto.createHash('sha512').update(req.body['value']).digest('hex'),
         md5: crypto.createHash('md5').update(req.body['value']).digest('hex'),
         length: req.body['value'].length,
-        supported: crypto.getHashes()
+        //supported: crypto.getHashes()
     });
 });
 app.listen(PORT, () => {
-    console.log("available at http://localhost:8080");
+    console.log(`available at http://localhost:${PORT}`);
+});
+https.createServer({
+    key: fs.readFileSync(path.join(__dirname, "./localhost.key")),
+    cert: fs.readFileSync(path.join(__dirname, "./localhost.crt")),
+}, app).listen(PORTHTTPS, () => {
+    console.log(`available at https://localhost:${PORTHTTPS}`);
 });
