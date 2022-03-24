@@ -30,7 +30,7 @@ app.get("*", (req, res) => {
     res.status(404).sendFile(path.join(__dirname, "../page/404.html"));
 });
 
-app.use('/scripts', express.static(path.join(__dirname, "../page/scripts/")))
+//app.use('/scripts', express.static(path.join(__dirname, "../page/scripts/")))
 
 app.post("/hash/", (req, res) => {
     if(crypto.getHashes().includes(req.body['hashtype'])) {
@@ -57,7 +57,11 @@ app.post("/hash/", (req, res) => {
         length: req.body['value'].length,
         //supported: crypto.getHashes()
     });
-})
+});
+
+app.get("/ip", (req, res) => {
+    res.status(200).send(req.ip);
+});
 
 app.listen(PORT, () => {
     console.log(`available at http://localhost:${PORT}`);
