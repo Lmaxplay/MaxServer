@@ -1,3 +1,5 @@
+(Get-Job) | Stop-Job
+
 $sassBlock = {
     sass.exe -w page/
 }
