@@ -4,7 +4,7 @@ const handlers = {};
  * Handler for messages from the worker
  * Use RegisterMessageHandler to register this as the handler for a message
 */
-function WorkerMessageHandler (message: MessageEvent) {
+async function WorkerMessageHandler (message: MessageEvent) {
     const messagecontent = message.data;
     // console.log(messagecontent);
     if(typeof messagecontent === "string") {
@@ -43,18 +43,27 @@ function RegisterWorker (worker: Worker) {
     worker.onmessage = WorkerMessageHandler;
 }
 
-RegisterMessageHandler("info", (message: any = "") => {
+RegisterMessageHandler("info", async (message: any = "") => {
     console.info(message);
 });
 
-RegisterMessageHandler("log", (message: any = "") => {
+RegisterMessageHandler("log", async (message: any = "") => {
     console.log(message);
 });
 
-RegisterMessageHandler("warn", (message: any = "") => {
+RegisterMessageHandler("warn", async (message: any = "") => {
     console.warn(message);
 });
 
-RegisterMessageHandler("error", (message: any = "") => {
+RegisterMessageHandler("error", async (message: any = "") => {
     console.error(message);
 });
+
+RegisterMessageHandler("debug", async (message: any = "") => {
+    console.debug(message);
+});
+
+RegisterMessageHandler("print", async (message: any = "") => {
+    console.log(message);
+});
+
