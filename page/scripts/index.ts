@@ -9,5 +9,8 @@ if(globalThis.window != null) {
     });
 } else {
     postMessage(["log", "This is a worker"]);
+    postMessage(["warn", "Warning from the worker"]);
+    postMessage(["error", "Error from the worker"]);
+    postMessage(["info", "Info from the worker"]);
     postMessage("hello");
 }
