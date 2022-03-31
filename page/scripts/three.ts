@@ -24,7 +24,7 @@ const camera = new THREE.PerspectiveCamera(
     75,
     canvas.clientWidth / canvas.clientHeight,
     0.1,
-    10000
+    100000
 );
 
 // Add an ambient light that illuminates the scene
@@ -67,12 +67,14 @@ scene.add(skybox);
 var cubes: Array<THREE.Mesh> = [];
 var speeds: Array<THREE.Vector3> = [];
 
+const minDistanceFromCamera = 20;
+
 // Make 100 cubes that are randomly placed in the scene with random colors, sizes and rotations
 for(let i = 0; i < 2000; i++) {
     var material = new THREE.MeshStandardMaterial({ color: 0x00ff00, roughness: 0, metalness: 0.5 });
     // Generate a random geometry
     const cube = new THREE.Mesh(geometry, material);
-    while(!(cube.position.x >= 10 || cube.position.x <= -10) && !(cube.position.y >= 10 || cube.position.y <= -10) && !(cube.position.z >= 10 || cube.position.z <= -10)) {
+    while(cube.position.distanceTo(new THREE.Vector3 (0, 0, 0)) < minDistanceFromCamera) {
         cube.position.x = Math.random() * 200 - 100;
         cube.position.y = Math.random() * 200 - 100;
         cube.position.z = Math.random() * 200 - 100;
@@ -134,7 +136,7 @@ function overlay () {
     ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
     
     ctx.font = '48px sans-serif';
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = '#fff';
     ctx.fillText(`${version}`, 0, 48, 1000);
     ctx.fillText(`Please do not distribute this highly incomplete game`, 0, overlayCanvas.height - 10, 1000);
     ctx.fillText(`Frame ${framecounter}`, 0, 96, 1000);
@@ -150,6 +152,11 @@ function render () {
     overlay();
     renderer.render(scene, camera);
     framecounter++
+    if(framecounter <= 1000) {
+        camera.far = framecounter / 2;
+    } else {
+        camera.far = 10000;
+    }
     requestAnimationFrame(render);
 }
 
