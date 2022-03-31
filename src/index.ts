@@ -11,6 +11,15 @@ const PORT: Number = 80;
 
 const PORTHTTPS: Number = 8080;
 
+process.on('uncaughtException', function(err) {
+    console.log("Fatal error: " + err);
+    console.log(err.stack);
+});
+
+process.on('exit', function(code) {
+    console.log("Exiting with code " + code);
+});
+
 app.use(function(req, res, next) {
     res.setHeader('X-Powered-By', 'Express');
     next();
@@ -150,9 +159,3 @@ https.createServer(
     console.log(`available at https://localhost:${PORTHTTPS}`);
     }
 );
-
-// On fatal error, print stack trace
-process.on('uncaughtException', function(err) {
-    console.log("Fatal error: " + err);
-    console.log(err.stack);
-});
