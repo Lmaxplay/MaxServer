@@ -9,7 +9,6 @@
 		],
 
 		"pretty": true,
-		"impor"
 	},
 	"include": [
 		"typings/**/*",

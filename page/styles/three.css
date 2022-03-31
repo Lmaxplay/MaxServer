@@ -1,0 +1,18 @@
+body {
+  background-color: #000;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  padding-bottom: -1px !important;
+  position: absolute;
+}
+
+#overlaycanvas {
+  z-index: 100;
+}
+
+/*# sourceMappingURL=three.css.map */

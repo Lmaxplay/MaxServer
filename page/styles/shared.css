@@ -5,12 +5,4 @@ html {
   padding: 0px !important;
 }
 
-canvas {
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100% !important;
-  max-height: 100% !important;
-  padding-bottom: -1px !important;
-}
-
 /*# sourceMappingURL=shared.css.map */
