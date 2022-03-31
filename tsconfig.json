@@ -9,10 +9,11 @@
 		],
 
 		"pretty": true,
+		"impor"
 	},
 	"include": [
 		"typings/**/*",
 		"src/**/*",
 		"page/**/*"
-	],
+	]
 }
